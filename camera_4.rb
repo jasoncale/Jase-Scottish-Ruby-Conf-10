@@ -1,18 +1,9 @@
 # Camera 4
 
-# require 'rubygems'
-# require 'httparty'
-
-# tweets = HTTParty.get('http://search.twitter.com/search.json', 
-#   :query => {:q => "#musicmonday", :rrp => "3"}, 
-#   :format => :json, 
-#   :headers => {'User-Agent' => 'Ruby Twitter Gem'}
-# )["results"].collect{|result| result["text"] }
-
 require 'rubygems'
-Gem.clear_paths
-ENV['GEM_HOME'] = "/Users/jasoncale/.rvm/gems/jruby-1.4.0"
-ENV['GEM_PATH'] = "/Users/jasoncale/.rvm/gems/jruby-1.4.0"
+# Gem.clear_paths
+# ENV['GEM_HOME'] = "/Users/jasoncale/.rvm/gems/jruby-1.4.0"
+# ENV['GEM_PATH'] = "/Users/jasoncale/.rvm/gems/jruby-1.4.0"
 
 require "json"
 require 'net/http'
@@ -88,7 +79,7 @@ class Camera4 < Processing::App
 
         c = color(r,g,b,90)
         
-        base_size = sample_rate
+        base_size = sample_rate + 3
         
         size = map(red(capture.pixels[pixel]), 0, 255, 0, base_size)
 
