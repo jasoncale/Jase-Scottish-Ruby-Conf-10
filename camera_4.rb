@@ -41,12 +41,10 @@ class Camera4 < Processing::App
     @capture = Capture.new(self, width, height, 30)
     @sample_rate = 10
     
-    process_tweets("ruby")
+    process_tweets("scotruby")
   end
   
-  def process_tweets(keyword)
-    # @tweets = File.readlines("data/tweets.txt").join(" ")
-    
+  def process_tweets(keyword)    
     tweets_json = Net::HTTP.get_response('www.twitter.com', "/search.json?q=#{keyword}").body    
     @tweets = JSON(tweets_json)["results"].collect{|result| result["text"] }.join(" ")
     @tweet_chars = @tweets.unpack("A1" * @tweets.length)
@@ -59,8 +57,6 @@ class Camera4 < Processing::App
   
   def clear
     background 0
-    no_stroke
-    ellipse_mode(CENTER)
   end
   
   def convert_pixels
@@ -77,11 +73,11 @@ class Camera4 < Processing::App
         g = green(capture.pixels[pixel])
         b = blue(capture.pixels[pixel])
 
-        c = color(r,g,b,90)
+        c = color(r,g,b,45)
         
-        base_size = sample_rate + 3
+        base_size = map(red(capture.pixels[pixel]), 0, 255, 0, 50)
         
-        size = map(red(capture.pixels[pixel]), 0, 255, 0, base_size)
+        size = map(brightness(capture.pixels[pixel]), 0, 255, 0, base_size)
 
         fill(c)
         
@@ -89,16 +85,12 @@ class Camera4 < Processing::App
           tweet_char = 0
         end
         
-        # ellipse(x, y, e_width, e_width)
-        textSize(size * 2)
-        
+        textSize(size)        
         text(@tweet_chars[tweet_char], x, y)
         
         tweet_char += 1
       end
-    end
-    
-    # capture.update_pixels
+    end    
   end
   
 end

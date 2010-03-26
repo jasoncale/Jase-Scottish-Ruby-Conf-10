@@ -65,17 +65,17 @@ class Camera5 < Processing::App
   end
   
   def convert_pixels
-    #clear
+    clear
     
     buffer = map(0, 0, num_pixels, 0, @input.bufferSize)
     left_chan = map(@input.left.get(buffer).abs, 0, 1, 0, 50)
     right_chan  = map(@input.right.get(buffer).abs, 0, 1, 0, 50)
     alpha = (left_chan + right_chan)
-    base_size = ((@sample_rate + 10) / alpha) * 20
-    
+        
     (1...height).step(sample_rate) do |y|
       (1...width).step(sample_rate) do |x|
         
+
         pixel = y * capture.width + x
         
         r = red(capture.pixels[pixel])
@@ -83,6 +83,9 @@ class Camera5 < Processing::App
         b = blue(capture.pixels[pixel])
 
         c = color(r,g,b,alpha)
+        
+        base_size = map(saturation(capture.pixels[pixel]), 0, 255, 0, 100)
+        
         
         # size = map(red(capture.pixels[pixel]), 0, 360, 0, base_size)
         # size = map(saturation(capture.pixels[pixel]), 0, 255, 0, base_size)        

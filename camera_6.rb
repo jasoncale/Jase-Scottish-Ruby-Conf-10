@@ -1,7 +1,7 @@
-# Camera 3
+# Camera 6
 
-class Camera3 < Processing::App
-
+class Camera6 < Processing::App
+  
   load_library :video
     
   # We need the video classes to be included here.
@@ -13,7 +13,7 @@ class Camera3 < Processing::App
     frame_rate 30
     smooth
     no_stroke
-    size(720, 576)
+    size(720, 576, P3D)
     
     # set colour to RGBA.
     colorMode(RGB, 255, 255, 255, 100);
@@ -65,9 +65,18 @@ class Camera3 < Processing::App
         # size = map(saturation(capture.pixels[pixel]), 0, 255, 0, base_size)        
         size = map(brightness(capture.pixels[pixel]), 0, 255, 0, base_size)
 
+        
+        # Calculate a z position as a function of mouseX and pixel brightness
+        z = (mouseX / width.to_f) * brightness(capture.pixels[pixel]) + base_size
+        # Translate to the location, set fill and stroke, and draw the rect
+        pushMatrix()
+        translate(x, y, z)
         fill(c)
-
+        noStroke()
+        rectMode(CENTER)
         ellipse(x, y, size, size)
+        popMatrix()
+        
       end
     end
     
@@ -76,4 +85,4 @@ class Camera3 < Processing::App
   
 end
 
-@art = Camera3.new :title => "Camera Play #3"
+Camera6.new :title => "Camera 6"
