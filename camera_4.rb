@@ -73,11 +73,11 @@ class Camera4 < Processing::App
         g = green(capture.pixels[pixel])
         b = blue(capture.pixels[pixel])
 
-        c = color(r,g,b,45)
+        c = color(r,g,b,100)
         
         base_size = map(red(capture.pixels[pixel]), 0, 255, 0, 50)
         
-        size = map(brightness(capture.pixels[pixel]), 0, 255, 0, base_size)
+        size = map(red(capture.pixels[pixel]), 0, 255, 0, base_size)
 
         fill(c)
         

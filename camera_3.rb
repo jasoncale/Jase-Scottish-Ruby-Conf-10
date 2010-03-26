@@ -61,9 +61,9 @@ class Camera3 < Processing::App
         base_size = 50
         
 
-        # size = map(red(capture.pixels[pixel]), 0, 255, 0, base_size)
+        size = map(green(capture.pixels[pixel]), 0, 255, 0, base_size)
         # size = map(saturation(capture.pixels[pixel]), 0, 255, 0, base_size)        
-        size = map(brightness(capture.pixels[pixel]), 0, 255, 0, base_size)
+        #size = map(brightness(capture.pixels[pixel]), 0, 255, 0, base_size)
 
         fill(c)
 
